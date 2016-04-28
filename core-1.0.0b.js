@@ -1157,7 +1157,7 @@ function PicardWidget (data) {
       //Configuramos el callback si ha fallado. Se define en una función aparte para poder llamarla desde el onload, porque IE8 no admite llamar directamente a xhr.onerror()
       var onError = function() {
         log("Error in http connection to Picard Web Server - xhr.status = " + xhr.status,'E', parent);
-        callback(new PicardResponseMessage({success:false,resultCode:'CFL-00007',errorMessage:'Error ('+xhr.status + ' - '+xhr.responseText+') in http connection',result:null}), parent);
+        callback(new PicardResponseMessage({success:false,resultCode:'CFL-00007',errorMessage:'Error ('+xhr.status + ' - '+xhr.statusText+') in http connection',result:null}), parent);
       };
       xhr.onerror = onError;
 
