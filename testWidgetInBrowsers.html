@@ -157,7 +157,7 @@ jQuery( document ).ready(function( $ ) {
     //data: {token: "92F18A6F0AEF0CE2DBB9558A69E05E60", cardnumber: "4200000000000000"},
     dataType: 'json'//,
     //forceMethod: true
-  }).done(cbkCardType);
+  }).done(cbkCardType).fail(cbkCardType);
 });
 
 
