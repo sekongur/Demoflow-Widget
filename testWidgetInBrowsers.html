@@ -149,9 +149,8 @@ function getConfigOperacion(){
 
 
 
-jQuery.noConflict();
- 
-jQuery( document ).ready(function( $ ) {
+$( document ).ready(function() {
+
   var xhr = $.ajax({
     type: 'GET',
     url: 'https://picardwidget.globalia-corp.com/rest/api/clientcards/92F18A6F0AEF0CE2DBB9558A69E05E60'//,
@@ -160,9 +159,8 @@ jQuery( document ).ready(function( $ ) {
     //dataType: 'json'//,
     //forceMethod: true
   }).done(cbkCardType).fail(cbkCardType);
+
 });
-
-
 
 
 
