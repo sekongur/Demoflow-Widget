@@ -34,6 +34,10 @@ label{
 <!--<script type="text/javascript" src="http://192.168.153.17:8080/picardwidget/js/core-1.0.0.js"></script>-->
 <!--<script type="text/javascript" src="./jquery-1.12.3.min.js"></script>
 <script type="text/javascript" src="./jquery.xdomainrequest.min.js"></script>-->
+<script type="text/javascript" src="./jquery-1.12.3.min.js"></script>
+<script type="text/javascript" src="./jquery.transport.xdr.min.js"></script>
+
+
 <script type="text/javascript" src="./core-1.0.1.js"></script>
 <!--<script type="text/javascript" src="./core-1.0.1.js"></script>-->
 <script type="text/javascript">
@@ -140,6 +144,26 @@ function getConfigOperacion(){
  };
  return configuration;
 }
+
+
+
+jQuery.noConflict();
+ 
+jQuery( document ).ready(function( $ ) {
+  var xhr = $.ajax({
+    type: 'POST',
+    url: 'https://picardwidget.globalia-corp.com/rest/api/cardtype',
+    data: {token: "92F18A6F0AEF0CE2DBB9558A69E05E60", cardnumber: "4200000000000000"},
+    dataType: 'json'//,
+    //forceMethod: true
+  }).done(cbkCardType);
+});
+
+
+
+
+
+
 
 </script>
 
