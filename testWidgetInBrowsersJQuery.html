@@ -1,0 +1,173 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<style type="text/css">
+ul{
+ text-align: left;
+ width: 100%;
+ padding: 0;
+ margin: 0;
+ z-index: 1;
+}
+li{
+ list-style: none;
+ margin: 0;
+ padding: 0;
+ width: 100%;
+}
+label{
+ text-align: left;
+ padding: 0;
+ margin: 0;
+ width: 15%;
+ display: block;
+ float: left;
+}
+.dual label {
+ width: 37%;
+}
+.botonera {
+ text-align:center;
+ zoom:1;
+ padding:4px 0;
+}
+</style>
+<!--<script type="text/javascript" src="http://192.168.153.17:8080/picardwidget/js/core-1.0.0.js"></script>-->
+<script type="text/javascript" src="./jquery-1.12.3.min.js"></script>
+<!--<script type="text/javascript" src="./jquery.xdomainrequest.min.js"></script>-->
+
+  <!--<script type="text/javascript" src="./jquery-1.5.2.js"></script>
+  <script type="text/javascript" src="./jquery.xdomainrequest.min_.js"></script>
+    -->
+
+
+<script type="text/javascript" src="https://picardwidget.globalia-corp.com/js/core-min-1.0.0.js"></script>
+<!--<script type="text/javascript" src="./core-1.0.1.js"></script>-->
+<script type="text/javascript">
+
+function getCardType(){
+ var data, fm;
+ fm = window.document.forms['focardtype'];
+ picardWidget.getCardType({
+  cardNumber : fm.p_cardnumber.value,
+  callback   : cbkCardType
+ });
+}
+
+function cbkCardType(result){
+
+ document.getElementById('rescardtype').value = getResultMessage(result);
+}
+
+
+function objDump(obj,lvl) {
+ lvl=lvl||0;
+ if (lvl>8) return null;
+ var _lvl=lpad(" ",lvl*3,"*"),str="",j,chd,v;
+ if(typeof(obj)=='object') {
+  for(chd in obj) {
+   v=obj[chd];
+   if(typeof(v)=='object') str+=_lvl+"'"+chd+"':\n"+objDump(v,lvl+1);
+   else str+=_lvl+"'"+chd+"' => "+v+"\n";
+  }
+ } else str=typeof(obj);
+ return str;
+}
+
+function lpad(c,sz,p){
+ if((!sz)||(c.length>=sz)) return c;
+ p=(!p)?' ':p;sz-=c.length;
+ var t='',i=sz;
+ while(i--) t+=p;
+ t=t.substr(0,sz);
+ return t+c;
+}
+
+function getResultMessage(obj) {
+ return '{\n'+objDump(obj)+'}';
+}
+
+
+</script>
+<body style="background-color:#FAEBD7">
+
+ <h1>CLIENT BROWSER</h1>
+ <div style="background-color:#EEE;padding:1em;border:1px solid black;">
+ <h2>API WIDGET</h2>
+ <form name="frm_config_ope" action="return false;">
+  <ul>
+   <li>
+    <label for="tokses" style="color:red">Token Session:</label>
+    <input type="text" name="p_tokses" id="tokses" style="width:20em;color:red" value="AB4D7E001513CD00E9962C2E45592E30"/>
+   </li>
+   <li>
+    <label for="environment">Environment:</label>
+    <select name="p_environment" id="environment" style="width:20em"><option value="development">Development</option><option value="test">Test</option><option value="live" selected>Live</option></select>
+   </li>
+   <li>
+    <label for="debug">Debugger:</label>
+    <select name="p_debug" id="debug" style="width:20em"><option value="S" selected>Yes</option><option value="N">No</option></select>
+   </li>
+  </ul>
+ </form>
+
+ <div id="gct" style="width:95%; border:1px solid; padding:0 1em 1em 1em; margin-top:1em">
+  <h2>GetCardType</h2>
+  <form id="focardtype" action="return false;">
+   <ul>
+    <li>
+     <label for="cardnumbergct">Card Number:</label>
+     <input type="text" name="p_cardnumber" id="cardnumbergct" style="width:10em" value="4200000000000000"/>
+    </li>
+    <li>
+     <label for="rescardtype">Resultado de la operación:</label>
+     <textarea id="rescardtype" name="rescardtype" style="width:100%;height:10em"/></textarea>
+    </li>
+   </ul>
+  </form>
+  <div class="botonera"><button name="enviar" onclick="getCardType();">Enviar</button><button onclick="resetCardType();">Reset</button></div>
+ </div>
+
+
+ </div>
+
+</body>
+
+<script type="text/javascript">
+
+var picardWidget = new PicardWidget(getConfigOperacion());
+
+function getConfigOperacion(){
+ var configuration, fo;
+ fo = window.document.forms['frm_config_ope'];
+ configuration = {
+    token : fo.p_tokses.value,
+    debug : (fo.p_debug.value=='S'?true:false),
+    environment : fo.p_environment.value
+ };
+ return configuration;
+}
+
+
+
+$( document ).ready(function() {
+
+  var xhr = $.ajax({
+    type: 'POST',
+    url: 'https://picardwidget.globalia-corp.com/rest/api/cardtype',
+    //url: 'https://picardwidget.globalia-corp.com/rest/api/clientcards/92F18A6F0AEF0CE2DBB9558A69E05E60&callback=?'//,
+    data: "{\"token\":\"92F18A6F0AEF0CE2DBB9558A69E05E60\",\"cardnumber\":\"4200000000000000\"}",
+    //data: {token: "92F18A6F0AEF0CE2DBB9558A69E05E60", cardnumber: "4200000000000000"},
+    dataType: 'json'//,
+    //forceMethod: true
+  }).done(cbkCardType).fail(cbkCardType);
+
+});
+
+
+//Ejecutar test
+//getCardType();
+
+
+</script>
+
+</html>
