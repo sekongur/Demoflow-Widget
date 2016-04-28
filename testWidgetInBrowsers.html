@@ -153,11 +153,11 @@ jQuery.noConflict();
  
 jQuery( document ).ready(function( $ ) {
   var xhr = $.ajax({
-    type: 'POST',
-    url: 'https://picardwidget.globalia-corp.com/rest/api/cardtype'+'&callback=?',
-    data: "{\"token\":\"92F18A6F0AEF0CE2DBB9558A69E05E60\",\"cardnumber\":\"4200000000000000\"}",
+    type: 'GET',
+    url: 'https://picardwidget.globalia-corp.com/rest/api/cardtype'//,
+    //data: "{\"token\":\"92F18A6F0AEF0CE2DBB9558A69E05E60\",\"cardnumber\":\"4200000000000000\"}",
     //data: {token: "92F18A6F0AEF0CE2DBB9558A69E05E60", cardnumber: "4200000000000000"},
-    dataType: 'json'//,
+    //dataType: 'json'//,
     //forceMethod: true
   }).done(cbkCardType).fail(cbkCardType);
 });
