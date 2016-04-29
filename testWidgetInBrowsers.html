@@ -55,6 +55,12 @@ function getCardType(){
 
 function cbkCardType(result){
 
+  if (result.success){
+    alert('result is success, with card:'+result.result.cardBrand);
+  } else {
+    alert('result is a failure');
+  }
+
  document.getElementById('rescardtype').value = getResultMessage(result);
 }
 
