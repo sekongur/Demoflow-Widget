@@ -1143,6 +1143,9 @@ function PicardWidget (data) {
       if ("withCredentials" in xhr) {
         // Principales navegadores.
         xhr.open(method, url, true);
+        
+        xhr.setRequestHeader("Accept","text/plain");
+        xhr.setRequestHeader("Content-Type","text/plain");
       } else if (typeof XDomainRequest != "undefined") {
         // IE8 y IE9
         xhr = new XDomainRequest();
@@ -1170,8 +1173,6 @@ function PicardWidget (data) {
           onError();
       };
 
-      xhr.setRequestHeader("Accept","text/plain");
-      xhr.setRequestHeader("Content-Type","text/plain");
 
       //Envío de la petición
       xhr.send(params);
